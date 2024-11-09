@@ -13,7 +13,8 @@ app.use(express.static(publicDirectory))
 const httpServer = http.createServer(app)
 httpServer.listen(PORT, () => console.log("Server on 🔥"))
 
-export const socket_io = new Server(httpServer) 
+const io = new Server(httpServer) 
 
+export default io
 // socket_io.on("connection", (socket) => console.log(`Connection established 👨‍💻 id:${socket.id}`))
 

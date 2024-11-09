@@ -1,3 +1,3 @@
-import { socket_io } from "../server"
+import io from "../server"
 
-socket_io.on("connection", (socket) => console.log(`Connection established 👨‍💻 id:${socket.id}`))
+io.on("connection", (socket) => console.log(`Connection established 👨‍💻 id:${socket.id}`))

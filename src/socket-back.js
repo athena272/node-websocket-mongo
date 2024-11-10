@@ -6,6 +6,10 @@ io.on("connection", (socket) => {
     //Server side
     socket.on("text_editor", (text) => {
         // io.emit("all_clients_text", text) MANDARIA PARA TODOS, INCLUSIVE ELA MESMO
-        socket.broadcast.emit("all_clients_text", text)
+        socket.broadcast.emit("send_text_all_clients", text)
     })
+
+    socket.on("disconnect", (motivo) => {
+        console.log(`Cliente "${socket.id}" desconectado!\nMotivo: ${motivo}`);
+    });
 })

@@ -7,3 +7,7 @@ export function emitTextEditor(text) {
 }
 
 socket.on("send_text_all_clients", (text) => updateTextEditor(text))
+
+socket.on("disconnect", (motive) => {
+    console.log(`Servidor desconectado 💀!\nMotivo: ${motive}`);
+});

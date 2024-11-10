@@ -6,4 +6,4 @@ export function emitTextEditor(text) {
     socket.emit("text_editor", text)
 }
 
-socket.on("all_clients_text", (text) => updateTextEditor(text))
+socket.on("send_text_all_clients", (text) => updateTextEditor(text))

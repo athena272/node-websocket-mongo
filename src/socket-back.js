@@ -8,9 +8,10 @@ io.on("connection", (socket) => {
         socket.join(roomName)
     })
 
-    socket.on("text_editor", (text) => {
+    socket.on("text_editor", ({ text, roomName }) => {
         // io.emit("all_clients_text", text) MANDARIA PARA TODOS, INCLUSIVE ELA MESMO
-        socket.broadcast.emit("send_text_all_clients", text)
+        // socket.broadcast.emit("send_text_clients", text)
+        socket.to(roomName).emit("send_text_clients", text)
     })
 
     socket.on("disconnect", (motive) => {

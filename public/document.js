@@ -13,6 +13,6 @@ export function updateTextEditor(text) {
 }
 
 textEditor.addEventListener('keyup', () => {
-    emitTextEditor(textEditor.value)
+    emitTextEditor({ text: textEditor.value, roomName })
 })
 

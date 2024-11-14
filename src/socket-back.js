@@ -1,22 +1,8 @@
 import { io } from "../server.js"
-
-const rooms = [
-    {
-        roomName: "JavaScript",
-        text: "texto de javascript...",
-    },
-    {
-        roomName: "Node",
-        text: "texto de node...",
-    },
-    {
-        roomName: "Socket.io",
-        text: "texto de socket.io...",
-    },
-]
+import { roomsCollection } from './config/dbConnect.js'
 
 function findRoom(roomName) {
-    const room = rooms.find(room => room.roomName === roomName)
+    const room = roomsCollection.findOne({ name: roomName })
     return room
 }
 
@@ -24,9 +10,10 @@ io.on("connection", (socket) => {
     console.log(`Connection established 🚀 id: ${socket.id}`)
 
     //Server side
-    socket.on("select_room", (roomName, returnText) => {
+    socket.on("select_room", async (roomName, returnText) => {
         socket.join(roomName)
-        const room = findRoom(roomName)
+        const room = await findRoom(roomName)
+        console.log("🚀 ~ socket.on ~ room:\n", room)
 
         if (room) {
             // socket.emit("send_text_area", room.text)

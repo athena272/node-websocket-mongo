@@ -1,8 +1,8 @@
 import { io } from "../server.js"
 import { roomsCollection } from './config/dbConnect.js'
 
-function findRoom(roomName) {
-    const room = roomsCollection.findOne({ name: roomName })
+async function findRoom(roomName) {
+    const room = await roomsCollection.findOne({ name: roomName })
     return room
 }
 

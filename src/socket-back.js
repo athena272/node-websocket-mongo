@@ -1,5 +1,5 @@
 import { io } from "../server.js"
-import { findRoom } from "./config/dbScripts.js"
+import { findRoom, updateRoom } from "./config/dbScripts.js"
 
 io.on("connection", (socket) => {
     console.log(`Connection established 🚀 id: ${socket.id}`)
@@ -7,8 +7,7 @@ io.on("connection", (socket) => {
     //Server side
     socket.on("select_room", async (roomName, returnText) => {
         socket.join(roomName)
-        const room = await findRoomoom(roomName)
-        console.log("🚀 ~ socket.on ~ room:\n", room)
+        const room = await findRoom(roomName)
 
         if (room) {
             // socket.emit("send_text_area", room.text)
@@ -17,12 +16,14 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on("text_editor", ({ text, roomName }) => {
+    socket.on("text_editor", async ({ text, roomName }) => {
         // io.emit("all_clients_text", text) MANDARIA PARA TODOS, INCLUSIVE ELA MESMO
         // socket.broadcast.emit("send_text_clients", text)
-        const room = findRoom(roomName)
-        if (room) {
-            room.text = text
+        const roomUpdate = await updateRoom({ roomName, text })
+
+        //Se houve modificacao na tabela do banco de dados
+        if (roomUpdate.modifiedCount) {
+
             socket.to(roomName).emit("send_text_clients", text)
         }
     })

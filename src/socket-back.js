@@ -1,10 +1,5 @@
 import { io } from "../server.js"
-import { roomsCollection } from './config/dbConnect.js'
-
-async function findRoom(roomName) {
-    const room = await roomsCollection.findOne({ name: roomName })
-    return room
-}
+import { findRoom } from "./config/dbScripts.js"
 
 io.on("connection", (socket) => {
     console.log(`Connection established 🚀 id: ${socket.id}`)
@@ -12,7 +7,7 @@ io.on("connection", (socket) => {
     //Server side
     socket.on("select_room", async (roomName, returnText) => {
         socket.join(roomName)
-        const room = await findRoom(roomName)
+        const room = await findRoomoom(roomName)
         console.log("🚀 ~ socket.on ~ room:\n", room)
 
         if (room) {

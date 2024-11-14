@@ -4,11 +4,6 @@ import url from 'url'
 import path from 'path'
 import http from 'http'
 import { Server } from 'socket.io'
-import connectDatabase from './src/config/dbConnect.js'
-
-const connection = await connectDatabase()
-connection.on('error', (error) => console.error("Something went wrong 💀\n", error))
-connection.once('open', () => console.log("Connection established with MONGO 🍃"))
 
 const app = express()
 const currentPath = url.fileURLToPath(import.meta.url)

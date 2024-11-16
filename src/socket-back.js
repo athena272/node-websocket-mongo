@@ -24,8 +24,18 @@ io.on("connection", (socket) => {
         }
     })
 
-    socket.on("store_room", (rommName) => {
-        console.log("🚀 ~ socket.on ~ rommName:", rommName)
+    socket.on("store_room", async (roomName) => {
+        const isRoomExist = (await showRoom(roomName)) !== null
+        if (isRoomExist) {
+            socket.emit("room_exists", roomName)
+            return
+        }
+
+        const newRoom = await storeRoom(roomName)
+
+        if (newRoom.acknowledged) {
+            io.emit("store_room_was_acknowledged", roomName)
+        }
     })
 
     socket.on("text_editor", async ({ text, roomName }) => {

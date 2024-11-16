@@ -21,7 +21,9 @@ export function updateTextEditor(text) {
     textEditor.value = text
 }
 
-export function alertAndRedirect(roomName) {
-    alert(`The room with name ${roomName} was deleted!`)
-    window.location.href = '/'
+export function alertAndRedirect(roomNameFunction) {
+    if (roomNameFunction === roomName) {
+        alert(`The room with name ${roomName} was deleted!`)
+        window.location.href = '/'
+    }
 }

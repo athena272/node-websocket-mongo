@@ -8,10 +8,11 @@ const inputForm = document.getElementById('input-documento')
 form.addEventListener('submit', (event) => {
   event.preventDefault()
   emitStoreRoom(inputForm.value)
+  inputForm.value = ''
 })
 
 export function insertRoomLink(roomName) {
-    roomsList.innerHTML += `
+  roomsList.innerHTML += `
      <a href="./document/document.html?roomName=${roomName}" class="list-group-item list-group-item-action">
         ${roomName}
       </a>

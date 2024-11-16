@@ -3,7 +3,7 @@ import { updateTextEditor } from "./document.js"
 const socket = io()
 
 export function selectRoom(roomName) {
-    socket.emit('select_room', roomName, (text) => {
+    socket.emit('show_room', roomName, (text) => {
         updateTextEditor(text)
     })
 }

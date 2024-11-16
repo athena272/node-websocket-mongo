@@ -1,27 +1,31 @@
 import { io } from "../server.js"
-import { findAllRooms, findRoom, updateRoom } from "./config/dbScripts.js"
+import { indexRooms, showRoom, storeRoom, updateRoom } from "./config/dbScripts.js"
 
 io.on("connection", (socket) => {
     console.log(`Connection established 🚀 id: ${socket.id}`)
 
     //Server side
-    socket.on("get_rooms", async (returnRooms) => {
-        const rooms = await findAllRooms()
+    socket.on("index_rooms", async (returnRooms) => {
+        const rooms = await indexRooms()
         if (rooms) {
 
             returnRooms(rooms)
         }
     })
 
-    socket.on("select_room", async (roomName, returnText) => {
+    socket.on("show_room", async (roomName, returnText) => {
         socket.join(roomName)
-        const room = await findRoom(roomName)
+        const room = await showRoom(roomName)
 
         if (room) {
             // socket.emit("send_text_area", room.text)
 
             returnText(room.text)
         }
+    })
+
+    socket.on("store_room", (rommName) => {
+        console.log("🚀 ~ socket.on ~ rommName:", rommName)
     })
 
     socket.on("text_editor", async ({ text, roomName }) => {

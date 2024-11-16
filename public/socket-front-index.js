@@ -7,6 +7,10 @@ socket.emit("index_rooms", (rooms) => {
     });
 })
 
+socket.on("store_room_was_acknowledged", (rommName) => insertRoomLink(rommName))
+
+socket.on("room_exists", (roomName) => console.log(`A room with name ${roomName} already exists!`))
+
 export function emitStoreRoom(rommName) {
     socket.emit("store_room", rommName)
 }

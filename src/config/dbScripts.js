@@ -11,7 +11,8 @@ export async function showRoom(roomName) {
 }
 
 export async function storeRoom(roomName) {
-
+    const newRoom = await roomsCollection.insertOne({ name: roomName, text: `Texto da sala ${roomName}` })
+    return newRoom
 }
 
 export async function updateRoom({ roomName, text }) {

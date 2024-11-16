@@ -1,5 +1,5 @@
 import { io } from "../server.js"
-import { indexRooms, showRoom, storeRoom, updateRoom } from "./config/dbScripts.js"
+import { indexRooms, showRoom, storeRoom, updateRoom, deleteRoom } from "./config/dbScripts.js"
 
 io.on("connection", (socket) => {
     console.log(`Connection established 🚀 id: ${socket.id}`)
@@ -48,6 +48,19 @@ io.on("connection", (socket) => {
 
             socket.to(roomName).emit("send_text_clients", text)
         }
+    })
+
+    socket.on("delete_room", async (roomName) => {
+        const isRoomExist = (await showRoom(roomName)) !== null
+        if (isRoomExist) {
+            const roomDelete = await deleteRoom(roomName)
+
+            if (roomDelete.acknowledged) {
+                io.emit("delete_room_was_acknowledged", roomName)
+            }
+        }
+
+        return
     })
 
     socket.on("disconnect", (motive) => {

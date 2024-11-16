@@ -13,10 +13,16 @@ form.addEventListener('submit', (event) => {
 
 export function insertRoomLink(roomName) {
   roomsList.innerHTML += `
-     <a href="./document/document.html?roomName=${roomName}" class="list-group-item list-group-item-action">
+     <a href="./document/document.html?roomName=${roomName}" class="list-group-item list-group-item-action" id="room-${roomName}">
         ${roomName}
       </a>
     `
+}
+
+export function removeRoomLink(roomName) {
+  const room = document.getElementById(`room-${roomName}`)
+  alert(`The room with name ${roomName} was deleted!`)
+  roomsList.removeChild(room)
 }
 
 // insertRoomLink("JavaScript")

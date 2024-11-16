@@ -29,3 +29,8 @@ export async function updateRoom({ roomName, text }) {
 
     return roomUpdate
 }
+
+export async function deleteRoom(roomName) {
+    const roomDelete = await roomsCollection.deleteOne({ name: roomName })
+    return roomDelete
+}

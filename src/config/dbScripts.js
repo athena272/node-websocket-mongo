@@ -1,5 +1,10 @@
 import { roomsCollection } from "./dbConnect.js"
 
+export async function findAllRooms() {
+    const rooms = await roomsCollection.find().toArray()
+    return rooms
+}
+
 export async function findRoom(roomName) {
     const room = await roomsCollection.findOne({ name: roomName })
     return room

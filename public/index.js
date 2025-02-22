@@ -13,7 +13,7 @@ form.addEventListener('submit', (event) => {
 
 export function insertRoomLink(roomName) {
   roomsList.innerHTML += `
-     <a href="./document/document.html?roomName=${roomName}" class="list-group-item list-group-item-action" id="room-${roomName}">
+     <a href="./document/?roomName=${roomName}" class="list-group-item list-group-item-action" id="room-${roomName}">
         ${roomName}
       </a>
     `

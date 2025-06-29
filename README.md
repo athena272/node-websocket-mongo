@@ -59,7 +59,3 @@ node-websocket-mongo/
 │── .env.example       # Example environment variables
 │── nodemon.json       # Nodemon configuration
 ```
-
-## 📜 License
-This project is licensed under the ISC License.
-
